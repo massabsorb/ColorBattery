@@ -25,3 +25,4 @@ colorbattery
 ```
 ### 🚀Executing
 ![Alt text](terminal.png)
+![Alt text](terminal2.png)
