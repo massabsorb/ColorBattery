@@ -33,7 +33,8 @@ func main(){
 			default:
 				levelColor = green
 		}
-		fmt.Printf("%s%s%s %d%%%s\r", levelColor, filled, empty, level, reset)
+		fmt.Printf("\033[2J \033[H \033[?25l")
+		fmt.Printf("%s%s%s%d%%%s\r", levelColor, filled, empty, level, reset)
 		time.Sleep(10 * time.Second)
 	}
 }
