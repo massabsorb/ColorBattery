@@ -11,7 +11,7 @@ import(
 
 const filledIndicator = "█"
 const emptyIndicator = "░"
-
+const chargeStatusFile = "/sys/class/power_supply/BATT/status"
 const capacityLevelFile = "/sys/class/power_supply/BATT/capacity"
 
 const red = "\033[1;31m"
@@ -23,6 +23,7 @@ const columns = 20
 
 func main(){
 	var levelColor string
+
 	filled, empty := createBar()
 	for{
 		level := getChargeLevel()
@@ -33,9 +34,10 @@ func main(){
 			default:
 				levelColor = green
 		}
+
 		fmt.Printf("\033[2J \033[H \033[?25l")
-		fmt.Printf("%s%s%s %d%%%s\r", levelColor, filled, empty, level, reset)
-		time.Sleep(10 * time.Second)
+		fmt.Printf("%s%s%s %d%% %s%s\r", levelColor, filled, empty, level, getChargeStatus(), reset)
+		time.Sleep(1 * time.Minute)
 	}
 }
 
@@ -60,4 +62,13 @@ func getChargeLevel()(int){
 	level, _ := strconv.Atoi(strData[0:len(strData)-1])
 
 	return level
+}
+
+func getChargeStatus()(string){
+	data, readErr := os.ReadFile(chargeStatusFile)
+	if readErr != nil{
+		fmt.Printf("%s%s%s", red, readErr, reset)
+	}
+
+	return string(data)
 }
