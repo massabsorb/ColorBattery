@@ -19,7 +19,7 @@ sudo mv colorbattery /usr/bin/
 ```
 
 #### 🧑‍💻Usage
-You can copy one file per one usage:
+Just type in your console:
 ```bash
 colorbattery
 ```
